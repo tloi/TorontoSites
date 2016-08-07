@@ -81,7 +81,7 @@ a:hover {
         <div id="map" class="partialMap"></div>
     </content>
   
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" async></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MRksfEJ1b2oVAA1HHDzOFcMUbSURK2o&callback=initMap"></script>  
@@ -89,7 +89,7 @@ a:hover {
     <script src="js/engine.js"></script>
    
     <script>
-        var geocoder, map;
+        
     function initMap() {
         //Model
         geocoder = new google.maps.Geocoder();
@@ -102,19 +102,11 @@ a:hover {
             scrollwheel: false,
             zoom: 6
         });
-        var OntarioSites = [
-            new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
-            new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
-            new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
-            new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
-            new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
-        ];
-        OntarioSites.sort(compare);
+        for (var x=0;x<OntarioSites.length;x++)
+        {
+            OntarioSites[x].setLongLat();
+        }
 
-
-        var viewModel = new OntarioViewModel(OntarioSites);
-
-        ko.applyBindings(viewModel);
     };
     </script>
 </body>
