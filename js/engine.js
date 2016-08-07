@@ -1,7 +1,7 @@
 ﻿'use strict'
 var geocoder, map;
 
-
+//***** site map and marker ***************//
 function getLongLat(address, callback) {
     if (geocoder) {
         geocoder.geocode({
@@ -74,7 +74,9 @@ var Site = function (name, address, wikiName) {
 
     return self;
 };
+//**** End of Site Map and Marker  **************//
 
+// Wikipedia API
 function getWikiInfo(name, callback) {
 
     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=&explaintext&format=json&formatversion=2&callback=?&titles=' + name;
@@ -137,14 +139,17 @@ function OntarioViewModel(sites) {
 
 }
 var OntarioSites = [
-            new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
-            new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
-            new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
-            new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
-            new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
+                new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
+                new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
+                new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
+                new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
+                new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
 ];
 OntarioSites.sort(compare);
 
-var viewModel = new OntarioViewModel(OntarioSites);
+$(function () {
+    
+    var viewModel = new OntarioViewModel(OntarioSites);
 
-ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel);
+});
