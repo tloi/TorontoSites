@@ -40,19 +40,3 @@ function OntarioViewModel(sites) {
 
 }
 
-$(function () {
-    //Model
-    var OntarioSites = [
-        new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
-        new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
-        new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
-        new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
-        new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
-    ];
-    OntarioSites.sort(compare);
-
-
-    var viewModel = new OntarioViewModel(OntarioSites);
-
-    ko.applyBindings(viewModel);
-});
