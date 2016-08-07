@@ -5,7 +5,62 @@
     <title>Ontario Tourism</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Cache-control" content="public">
-    <link href="css/style.css" rel="stylesheet" />
+    <style>
+        html,
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0
+}
+.site_list {
+    list-style: none;
+    list-style-type: none;
+    white-space: nowrap;
+}
+header {
+    text-align: center;
+    margin-top: 10px;
+}
+aside {
+    position: absolute;
+    width: 200px;
+    background: black;
+    color: white;
+    transition: margin-left 2s;
+    z-index: 9999
+}
+.hideAside {
+    margin-left: -220px;
+}
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+#map {
+    border: 1px black solid;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+}
+#bar {
+    position: absolute;
+    z-index: 9999;
+    cursor: pointer;
+    background: white;
+    padding: 2px;
+    margin-left: 0;
+    margin-top: 0;
+    border: 1px solid black
+}
+.maps-frame {
+    height: 100%;
+    width: 100%;
+}
+
+    </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
