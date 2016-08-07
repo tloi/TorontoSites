@@ -84,13 +84,24 @@ a:hover {
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MRksfEJ1b2oVAA1HHDzOFcMUbSURK2o"></script>  
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MRksfEJ1b2oVAA1HHDzOFcMUbSURK2o&callback=initMap"></script>  
     
     <script src="js/engine.js"></script>
    
     <script>
-    $(function () {
+        var geocoder, map;
+    function initMap() {
         //Model
+        geocoder = new google.maps.Geocoder();
+        // Create a map object and specify the DOM element for display.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: 43.6534922,
+                lng: -79.3839729
+            },
+            scrollwheel: false,
+            zoom: 6
+        });
         var OntarioSites = [
             new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
             new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
@@ -104,7 +115,7 @@ a:hover {
         var viewModel = new OntarioViewModel(OntarioSites);
 
         ko.applyBindings(viewModel);
-    });
+    };
     </script>
 </body>
 

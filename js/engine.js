@@ -1,14 +1,5 @@
 ﻿'use strict'
-var geocoder = new google.maps.Geocoder();
-// Create a map object and specify the DOM element for display.
-var map = new google.maps.Map(document.getElementById('map'), {
-    center: {
-        lat: 43.6534922,
-        lng: -79.3839729
-    },
-    scrollwheel: false,
-    zoom: 6
-});
+
 
 
 function getLongLat(address, callback) {
