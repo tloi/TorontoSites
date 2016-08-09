@@ -63,7 +63,6 @@ a:hover {
 
     </style>
     
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MRksfEJ1b2oVAA1HHDzOFcMUbSURK2o&callback=initMap"></script>
     
 </head>
 
@@ -71,7 +70,7 @@ a:hover {
 
     <aside id="sidebar">
         <header>
-            <input data-bind="value: filterSiteValue, valueUpdate:'keyup'" placeholder="Filter" />
+            <input data-bind="textInput: filterSiteValue" placeholder="Filter" />
 
         </header>
         <ul class="site_list" data-bind="foreach: filteredSiteList">
@@ -111,6 +110,8 @@ a:hover {
 
     };
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9MRksfEJ1b2oVAA1HHDzOFcMUbSURK2o&callback=initMap"></script>
+
 </body>
 
 </html>

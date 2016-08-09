@@ -2,7 +2,7 @@
 var geocoder, map;
 
 //***** site map and marker ***************//
-function getLongLat(address, callback) {
+function getLongLat(address, callback,callbackError) {
     if (geocoder) {
         geocoder.geocode({
             'address': address
@@ -12,9 +12,31 @@ function getLongLat(address, callback) {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 });
+                
             }
+            else {
+                callbackError(status);
+            }
+            
         });
     }
+}
+function showSiteInfo(site)
+{
+    if (site.marker)
+    {
+        if (site.infoWindow)
+            site.infoWindow.open(map, site.marker);
+  
+        if (site.marker.getAnimation() !== null) {
+            site.marker.setAnimation(null);
+        } else {
+            site.marker.setAnimation(google.maps.Animation.BOUNCE);
+        };
+    } else {
+        alert('Address could not be located');
+    }
+
 }
 function markSite(site) {
     if (site.geo) {
@@ -23,18 +45,19 @@ function markSite(site) {
             map: map,
             title: site.address
         });
+        marker.addListener('click', function () {
+            showSiteInfo(site);
+        });
         getWikiInfo(site.wikiName, function (data) {
             site.infoWindow = new google.maps.InfoWindow({
                 content: data
-            });
-            marker.addListener('click', function () {
-                site.infoWindow.open(map, marker);
             });
         });
 
 
         return marker;
     };
+
     return null;
 
 }
@@ -69,7 +92,12 @@ var Site = function (name, address, wikiName) {
         getLongLat(address, function (data) {
             self.geo = data;
             self.marker = markSite(self);
-        });
+        }, function(er)
+        {
+            self.geo = null;
+            self.marker = markSite(self);
+        }
+        );
     }
 
     return self;
@@ -91,11 +119,7 @@ function getWikiInfo(name, callback) {
             }
         });
         callback(info);
-    },
-        function (er) {
-            callback('Information not currently available');
-        }
-    );
+    });
 
 }
 
@@ -126,10 +150,10 @@ function OntarioViewModel(sites) {
         markSites(newFilteredSite, map);
         return newFilteredSite;
     });
-    self.markMap = function (t) {
-        if (t.infoWindow) {
-            t.infoWindow.open(map, t.marker);
-        }
+    self.markMap = function (linkSite) {
+       
+            showSiteInfo(linkSite);
+       
 
     }
     self.toggleMenu = function () {
@@ -139,17 +163,16 @@ function OntarioViewModel(sites) {
 
 }
 var OntarioSites = [
-                new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
-                new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
-                new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
-                new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
-                new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
+                    new Site("Niagara on the Lake", "Niagara-on-the-Lake, Ontario", "Niagara-on-the-Lake"),
+                    new Site("Bruce Peninsula", "Bruce Peninsula, Northern Bruce Peninsula, ON", "Bruce Peninsula"),
+                    new Site("Niagara Falls", "Niagara Falls, Ontario", "Niagara Falls"),
+                    new Site("Toronto CN Tower", "301 Front St W, Toronto, ON, M5V 2T6", "CN Tower"),
+                    new Site("Ottawa Parliament Hill", "Wellington St, Ottawa, ON", "Parliament Hill")
 ];
 OntarioSites.sort(compare);
 
-$(function () {
+$(function () {    
     
     var viewModel = new OntarioViewModel(OntarioSites);
-
     ko.applyBindings(viewModel);
 });
