@@ -74,7 +74,7 @@ a:hover {
 
         </header>
         <ul class="site_list" data-bind="foreach: filteredSiteList">
-            <li><a data-bind="click:$parent.markMap.bind(name)"><span data-bind="text:name"></span></a> </li>
+            <li><a data-bind="click:showSiteInfo"><span data-bind="text:name"></span></a> </li>
 
         </ul>
     </aside>
@@ -87,7 +87,7 @@ a:hover {
     <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js" ></script>
     
     
-    <script src="js/engine.js"></script>
+    <script src="js/engine.js" ></script>
    
     <script>
         
